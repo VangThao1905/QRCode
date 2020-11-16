@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    //
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <RelativeLayout
+            android:layout_marginBottom="8dp"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <EditText
+                android:id="@+id/edtGiaTriQR"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="8dp"
+                android:hint="Nhập dữ liệu cần tạo" />
+
+            <Button
+                android:layout_centerHorizontal="true"
+                android:background="@drawable/custom_button"
+                android:id="@+id/btnTaoNgay"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/edtGiaTriQR"
+                android:layout_marginLeft="8dp"
+                android:layout_marginRight="8dp"
+                android:text="Tạo ngay" />
+
+            <ImageView
+                android:id="@+id/imgViewKetQua"
+                android:layout_width="200dp"
+                android:layout_height="200dp"
+                android:layout_below="@id/btnTaoNgay"
+                android:layout_centerHorizontal="true"
+                android:layout_margin="8dp"
+                android:src="@drawable/image_default" />
+
+            <TextView
+                android:id="@+id/txtChuMaHienTai"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/imgViewKetQua"
+                android:layout_margin="8dp"
+                android:gravity="center"
+                android:text="Mã hiện tại là:"
+                android:textColor="#4CAF50"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/txtMaHienTai"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/txtChuMaHienTai"
+                android:layout_marginLeft="8dp"
+                android:layout_marginTop="4dp"
+                android:layout_marginRight="8dp"
+                android:gravity="center"
+                android:text=""
+                android:textColor="#000000"
+                android:textStyle="bold" />
+
+            <Button
+                android:layout_centerHorizontal="true"
+                android:background="@drawable/custom_button"
+                android:id="@+id/btnTaiXuong"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/txtMaHienTai"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentBottom="true"
+                android:layout_margin="8dp"
+                android:text="Tải xuống mã QR" />
+        </RelativeLayout>
+    </LinearLayout>
+
+</ScrollView>
