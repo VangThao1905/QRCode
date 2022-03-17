@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">QRCode - Tạo &amp; Quét</string>
+    <string name="enter_text">Nhập dữ liệu...</string>
+    <string name="create_now">Tạo ngay</string>
+    <string name="current_qr_code">Mã hiện tại:</string>
+    <string name="download_qr_code">Tải xuống QRCode</string>
+    <string name="start_scan">Bắt đầu quét</string>
+    <string name="result_with_colon">Kết quả:</string>
+    <string name="result">Kết quả</string>
+    <string name="create">Tạo</string>
+    <string name="camera_scan">Quét camera</string>
+    <string name="image_scan">Quét ảnh</string>
+    <string name="data_invalid">Dữ liệu không hợp lệ!</string>
+    <string name="save_image_success">Lưu ảnh thành công!</string>
+</resources>

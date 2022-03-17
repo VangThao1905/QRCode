@@ -1,13 +1,15 @@
 package vangthao.app.generatorandscanner_qrcode;
 
 import android.Manifest;
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.Color;
+import android.graphics.Paint;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
-import android.os.Environment;
 import android.provider.MediaStore;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -23,11 +25,6 @@ import androidx.annotation.Nullable;
 import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.Fragment;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.net.URI;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -64,12 +61,12 @@ public class FragmentTaoMaQR extends Fragment {
             public void onClick(View view) {
                 String giaTriQR = edtGiaTriMaQR.getText().toString();
                 if (giaTriQR.isEmpty()) {
-                    Toast.makeText(getActivity(), "Dữ liệu không hợp lệ!", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getActivity(), R.string.data_invalid, Toast.LENGTH_SHORT).show();
                 } else {
                     QRGEncoder qrgEncoder = new QRGEncoder(giaTriQR, null, QRGContents.Type.TEXT, 1000);
                     Bitmap qrBitmaps = qrgEncoder.getBitmap();
                     imgViewKetQua.setImageBitmap(qrBitmaps);
-                    txtMaHienTai.setText(giaTriQR);
+                   txtMaHienTai.setText(giaTriQR);
                     edtGiaTriMaQR.setText("");
                 }
             }
@@ -80,7 +77,7 @@ public class FragmentTaoMaQR extends Fragment {
         btnTaiXuong.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                    saveToGallery();
+                saveToGallery();
             }
         });
 
@@ -88,14 +85,14 @@ public class FragmentTaoMaQR extends Fragment {
 
     private void saveToGallery() {
         Drawable drawable = imgViewKetQua.getDrawable();
-        Bitmap bitmap = ((BitmapDrawable)drawable).getBitmap();
+        Bitmap bitmap = ((BitmapDrawable) drawable).getBitmap();
 
-        String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
-        String saveImageURL = MediaStore.Images.Media.insertImage(getActivity().getContentResolver(),bitmap,"QRCode_"+timeStamp,"image of bird");
+        @SuppressLint("SimpleDateFormat") String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
+        String saveImageURL = MediaStore.Images.Media.insertImage(getActivity().getContentResolver(), bitmap, "QRCode_" + timeStamp, "image of qr code");
 
         Uri saveImageURI = Uri.parse(saveImageURL);
         imgViewKetQua.setImageURI(saveImageURI);
-        Toast.makeText(getActivity(), "Lưu ảnh thành công!", Toast.LENGTH_SHORT).show();
+        Toast.makeText(getActivity(), R.string.save_image_success, Toast.LENGTH_SHORT).show();
     }
 
     private void AnhXa() {

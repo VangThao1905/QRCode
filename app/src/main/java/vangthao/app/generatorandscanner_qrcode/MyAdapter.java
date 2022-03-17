@@ -7,13 +7,14 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentStatePagerAdapter;
 
 public class MyAdapter extends FragmentStatePagerAdapter {
-    private String listTab[] = {"Tạo mã", "Quyét-Camera","Quyét-ảnh"};
+    private String[] listTab;
     FragmentTaoMaQR fragmentTaoMaQR;
     FragmentQuyetMaQR fragmentQuyetMaQR;
     FragmentQuyet_Anh fragmentQuyet_anh;
 
-    public MyAdapter(@NonNull FragmentManager fm) {
+    public MyAdapter(@NonNull FragmentManager fm, String[] listTab) {
         super(fm);
+        this.listTab = listTab;
         fragmentTaoMaQR = new FragmentTaoMaQR();
         fragmentQuyetMaQR = new FragmentQuyetMaQR();
         fragmentQuyet_anh = new FragmentQuyet_Anh();
@@ -22,14 +23,14 @@ public class MyAdapter extends FragmentStatePagerAdapter {
     @NonNull
     @Override
     public Fragment getItem(int position) {
-        if(position == 0){
+        if (position == 0) {
             return fragmentTaoMaQR;
-        }else if(position == 1){
+        } else if (position == 1) {
             return fragmentQuyetMaQR;
-        }else if(position == 2){
+        } else if (position == 2) {
             return fragmentQuyet_anh;
-        }else{
-            //TODO nothing
+        } else {
+            ///implement new feature
         }
         return null;
     }

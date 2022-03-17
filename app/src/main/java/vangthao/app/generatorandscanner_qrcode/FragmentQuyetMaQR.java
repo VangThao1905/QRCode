@@ -105,7 +105,7 @@ public class FragmentQuyetMaQR extends Fragment {
     }
 
 
-    private void requerForCamera() {
+    private void requestForCamera() {
         Dexter.withActivity(getActivity()).withPermission(Manifest.permission.CAMERA).withListener(new PermissionListener() {
             @Override
             public void onPermissionGranted(PermissionGrantedResponse permissionGrantedResponse) {

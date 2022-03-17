@@ -1,6 +1,5 @@
 package vangthao.app.generatorandscanner_qrcode;
 
-import android.Manifest;
 import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Bitmap;
@@ -13,8 +12,6 @@ import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
-import android.text.method.LinkMovementMethod;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,15 +19,11 @@ import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
-import com.budiyev.android.codescanner.CodeScanner;
-import com.budiyev.android.codescanner.CodeScannerView;
-import com.budiyev.android.codescanner.DecodeCallback;
 import com.google.zxing.BinaryBitmap;
 import com.google.zxing.ChecksumException;
 import com.google.zxing.FormatException;
@@ -41,12 +34,6 @@ import com.google.zxing.RGBLuminanceSource;
 import com.google.zxing.Reader;
 import com.google.zxing.Result;
 import com.google.zxing.common.HybridBinarizer;
-import com.karumi.dexter.Dexter;
-import com.karumi.dexter.PermissionToken;
-import com.karumi.dexter.listener.PermissionDeniedResponse;
-import com.karumi.dexter.listener.PermissionGrantedResponse;
-import com.karumi.dexter.listener.PermissionRequest;
-import com.karumi.dexter.listener.single.PermissionListener;
 
 import java.io.FileNotFoundException;
 import java.io.InputStream;
@@ -55,18 +42,19 @@ import static android.app.Activity.RESULT_OK;
 
 public class FragmentQuyet_Anh extends Fragment {
     private View rootView;
-    private ImageView imgViewHinhQuyet;
-    private Button btnBatDauQuyet;
-    private TextView txtKetQuaQuyetAnh;
+    private ImageView imgViewHinhQuet;
+    private Button btnBatDauQuet;
+    private TextView txtKetQuaQuetAnh;
     private ImageButton imgBtnTaiAnhLen;
     private int REQUEST_CODE_IMAGE = 1;
-    private String realPath = "",ketQua = "Kết Quả",checkLink = "";
+    private String realPath = "", ketQua = "", checkLink = "";
     MediaPlayer mediaPlayer;
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         rootView = inflater.inflate(R.layout.fragment_quyet_anh, container, false);
+        ketQua = getActivity().getString(R.string.result);
         AnhXa();
         init();
         return rootView;
@@ -83,36 +71,36 @@ public class FragmentQuyet_Anh extends Fragment {
             }
         });
 
-        btnBatDauQuyet.setOnClickListener(new View.OnClickListener() {
+        btnBatDauQuet.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Drawable drawable = imgViewHinhQuyet.getDrawable();
+                Drawable drawable = imgViewHinhQuet.getDrawable();
 
                 Bitmap bitmap = ((BitmapDrawable) drawable).getBitmap();
                 ketQua = scanQRImage(bitmap);
                 mediaPlayer.start();
-                if(ketQua.length() >= 4){
+                if (ketQua.length() >= 4) {
                     checkLink = ketQua.substring(0, 4);
                 }
                 //Log.d("CHECK",checkLink);
-                txtKetQuaQuyetAnh.setText(ketQua);
+                txtKetQuaQuetAnh.setText(ketQua);
                 //txtKetQuaQuyetAnh.setMovementMethod(LinkMovementMethod.getInstance());
                 if (checkLink.equals("http")) {
-                    txtKetQuaQuyetAnh.setText(ketQua);
-                    txtKetQuaQuyetAnh.setTextColor(Color.BLUE);
-                    txtKetQuaQuyetAnh.setPaintFlags(txtKetQuaQuyetAnh.getPaintFlags() | Paint.UNDERLINE_TEXT_FLAG);
-                    txtKetQuaQuyetAnh.setOnClickListener(new View.OnClickListener() {
+                    txtKetQuaQuetAnh.setText(ketQua);
+                    txtKetQuaQuetAnh.setTextColor(Color.BLUE);
+                    txtKetQuaQuetAnh.setPaintFlags(txtKetQuaQuetAnh.getPaintFlags() | Paint.UNDERLINE_TEXT_FLAG);
+                    txtKetQuaQuetAnh.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View view) {
-                            Intent browserIntent = new Intent(Intent.ACTION_VIEW,Uri.parse(ketQua));
+                            Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(ketQua));
                             startActivity(browserIntent);
                         }
                     });
-                }else{
-                    txtKetQuaQuyetAnh.setText(ketQua);
-                    txtKetQuaQuyetAnh.setTextColor(Color.BLACK);
-                    txtKetQuaQuyetAnh.setPaintFlags(txtKetQuaQuyetAnh.getPaintFlags() & ~Paint.UNDERLINE_TEXT_FLAG);
-                    txtKetQuaQuyetAnh.setOnClickListener(new View.OnClickListener() {
+                } else {
+                    txtKetQuaQuetAnh.setText(ketQua);
+                    txtKetQuaQuetAnh.setTextColor(Color.BLACK);
+                    txtKetQuaQuetAnh.setPaintFlags(txtKetQuaQuetAnh.getPaintFlags() & ~Paint.UNDERLINE_TEXT_FLAG);
+                    txtKetQuaQuetAnh.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View view) {
 
@@ -145,7 +133,7 @@ public class FragmentQuyet_Anh extends Fragment {
             try {
                 InputStream inputStream = getActivity().getContentResolver().openInputStream(uri);
                 Bitmap bitmap = BitmapFactory.decodeStream(inputStream);
-                imgViewHinhQuyet.setImageBitmap(bitmap);
+                imgViewHinhQuet.setImageBitmap(bitmap);
             } catch (FileNotFoundException e) {
                 e.printStackTrace();
             }
@@ -179,9 +167,9 @@ public class FragmentQuyet_Anh extends Fragment {
 
     private void AnhXa() {
         imgBtnTaiAnhLen = rootView.findViewById(R.id.imgBtnTaiAnhLen);
-        imgViewHinhQuyet = rootView.findViewById(R.id.imgViewHinhQuyet);
-        btnBatDauQuyet = rootView.findViewById(R.id.btnBatDauQuyet);
-        txtKetQuaQuyetAnh = rootView.findViewById(R.id.txtKetQua_QuyetAnh);
+        imgViewHinhQuet = rootView.findViewById(R.id.imgViewHinhQuyet);
+        btnBatDauQuet = rootView.findViewById(R.id.btnBatDauQuyet);
+        txtKetQuaQuetAnh = rootView.findViewById(R.id.txtKetQua_QuyetAnh);
     }
 }
 

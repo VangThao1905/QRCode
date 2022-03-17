@@ -1,61 +1,59 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
     <ImageButton
-        android:background="@android:color/transparent"
-        android:scaleType="fitXY"
-        android:src="@drawable/upload_image48"
         android:id="@+id/imgBtnTaiAnhLen"
-        android:layout_centerHorizontal="true"
         android:layout_width="32dp"
-        android:layout_height="32dp"/>
+        android:layout_height="32dp"
+        android:layout_centerHorizontal="true"
+        android:background="@android:color/transparent"
+        android:contentDescription="@null"
+        android:scaleType="fitXY"
+        android:src="@drawable/upload_image48" />
 
     <ImageView
-        android:layout_below="@id/imgBtnTaiAnhLen"
-        android:src="@drawable/noimage"
         android:id="@+id/imgViewHinhQuyet"
-        android:scaleType="fitXY"
-        android:layout_margin="8dp"
-        android:layout_centerHorizontal="true"
         android:layout_width="250dp"
-        android:layout_height="250dp"/>
+        android:layout_height="250dp"
+        android:layout_below="@id/imgBtnTaiAnhLen"
+        android:layout_centerHorizontal="true"
+        android:layout_margin="8dp"
+        android:contentDescription="@null"
+        android:scaleType="fitXY"
+        android:src="@drawable/noimage" />
 
     <Button
         android:id="@+id/btnBatDauQuyet"
-        android:text="Bắt đầu  quyét"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/imgViewHinhQuyet"
         android:layout_margin="8dp"
         android:layout_marginBottom="8dp"
-        android:layout_below="@id/imgViewHinhQuyet"
         android:background="@drawable/custom_button"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
+        android:text="@string/start_scan" />
 
     <TextView
-        android:textStyle="bold"
-        android:textColor="#4CAF50"
-        android:layout_margin="8dp"
-        android:text="Kết Quả:"
-        android:layout_below="@id/btnBatDauQuyet"
-        android:layout_centerHorizontal="true"
         android:id="@+id/txtChuKetQua_QuyetAnh"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/>
+        android:layout_height="wrap_content"
+        android:layout_below="@id/btnBatDauQuyet"
+        android:layout_centerHorizontal="true"
+        android:layout_margin="8dp"
+        android:text="@string/result_with_colon"
+        android:textColor="#4CAF50"
+        android:textStyle="bold" />
 
     <TextView
-        android:textColor="#000"
-        android:layout_margin="8dp"
-        android:text="Kết Quả"
-        android:layout_below="@id/txtChuKetQua_QuyetAnh"
-        android:layout_centerHorizontal="true"
         android:id="@+id/txtKetQua_QuyetAnh"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/>
-
+        android:layout_height="wrap_content"
+        android:layout_below="@id/txtChuKetQua_QuyetAnh"
+        android:layout_centerHorizontal="true"
+        android:layout_margin="8dp"
+        android:text="@string/result"
+        android:textColor="#000" />
 
 
 </RelativeLayout>

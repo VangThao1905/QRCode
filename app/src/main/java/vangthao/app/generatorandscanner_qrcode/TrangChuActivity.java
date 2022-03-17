@@ -16,13 +16,14 @@ public class TrangChuActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_trang_chu);
+        String[] listTab = {getString(R.string.create), getString(R.string.camera_scan),getString(R.string.image_scan)};
 
         AnhXa();
-        init();
+        init(listTab);
     }
 
-    private void init() {
-        viewPager.setAdapter(new MyAdapter(getSupportFragmentManager()));
+    private void init(String[] listTag) {
+        viewPager.setAdapter(new MyAdapter(getSupportFragmentManager(), listTag));
         tabLayout.setupWithViewPager(viewPager);
     }
 
