@@ -73,6 +73,7 @@ public class FragmentTaoMaQR extends Fragment {
         });
         ActivityCompat.requestPermissions(getActivity(), new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, 1);
         ActivityCompat.requestPermissions(getActivity(), new String[]{Manifest.permission.READ_EXTERNAL_STORAGE}, 1);
+        ActivityCompat.requestPermissions(getActivity(), new String[]{Manifest.permission.CAMERA}, 1);
 
         btnTaiXuong.setOnClickListener(new View.OnClickListener() {
             @Override

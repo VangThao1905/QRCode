@@ -94,7 +94,8 @@ public class FragmentQuyetMaQR extends Fragment {
             }
         });
 
-        codeScanner.startPreview();
+//        codeScanner.startPreview();
+        requestForCamera();
 
         scannerView.setOnClickListener(new View.OnClickListener() {
             @Override
