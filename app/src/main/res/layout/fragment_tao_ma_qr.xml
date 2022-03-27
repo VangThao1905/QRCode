@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -31,24 +32,34 @@
                 android:background="@drawable/custom_button"
                 android:text="@string/create_now" />
 
-            <ImageView
-                android:id="@+id/imgViewKetQua"
+            <androidx.cardview.widget.CardView
+                android:id="@+id/cardViewImageQR"
                 android:layout_width="200dp"
                 android:layout_height="200dp"
                 android:layout_below="@id/btnTaoNgay"
                 android:layout_centerHorizontal="true"
                 android:layout_marginStart="8dp"
-                android:layout_marginTop="8dp"
+                android:layout_marginTop="16dp"
                 android:layout_marginEnd="8dp"
-                android:layout_marginBottom="8dp"
-                android:contentDescription="@null"
-                android:src="@drawable/default_image" />
+                app:cardCornerRadius="8dp"
+                android:elevation="10dp"
+                android:layout_marginBottom="8dp">
+
+                <ImageView
+                    android:id="@+id/imgViewKetQua"
+                    android:layout_width="200dp"
+                    android:layout_height="200dp"
+                    android:contentDescription="@null"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/default_image" />
+            </androidx.cardview.widget.CardView>
+
 
             <TextView
                 android:id="@+id/txtChuMaHienTai"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/imgViewKetQua"
+                android:layout_below="@id/cardViewImageQR"
                 android:layout_margin="8dp"
                 android:gravity="center"
                 android:text="@string/current_qr_code"
