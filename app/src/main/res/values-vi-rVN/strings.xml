@@ -13,4 +13,5 @@
     <string name="image_scan">Quét ảnh</string>
     <string name="data_invalid">Dữ liệu không hợp lệ!</string>
     <string name="save_image_success">Lưu ảnh thành công!</string>
+    <string name="not_upload_qr_image_to_scan_notifications">Vui lòng tải lên ảnh mã QR để bắt đầu quét</string>
 </resources>

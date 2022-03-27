@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.drawable.BitmapDrawable;
@@ -19,6 +20,7 @@ import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -60,6 +62,28 @@ public class FragmentQuyet_Anh extends Fragment {
         return rootView;
     }
 
+    public static Bitmap drawableToBitmap(Drawable drawable) {
+        Bitmap bitmap = null;
+
+        if (drawable instanceof BitmapDrawable) {
+            BitmapDrawable bitmapDrawable = (BitmapDrawable) drawable;
+            if (bitmapDrawable.getBitmap() != null) {
+                return bitmapDrawable.getBitmap();
+            }
+        }
+
+        if (drawable.getIntrinsicWidth() <= 0 || drawable.getIntrinsicHeight() <= 0) {
+            bitmap = Bitmap.createBitmap(1, 1, Bitmap.Config.ARGB_8888); // Single color bitmap will be created of 1x1 pixel
+        } else {
+            bitmap = Bitmap.createBitmap(drawable.getIntrinsicWidth(), drawable.getIntrinsicHeight(), Bitmap.Config.ARGB_8888);
+        }
+
+        Canvas canvas = new Canvas(bitmap);
+        drawable.setBounds(0, 0, canvas.getWidth(), canvas.getHeight());
+        drawable.draw(canvas);
+        return bitmap;
+    }
+
     private void init() {
         mediaPlayer = MediaPlayer.create(getActivity(), R.raw.ting_sound);
         imgBtnTaiAnhLen.setOnClickListener(new View.OnClickListener() {
@@ -76,37 +100,41 @@ public class FragmentQuyet_Anh extends Fragment {
             public void onClick(View view) {
                 Drawable drawable = imgViewHinhQuet.getDrawable();
 
-                Bitmap bitmap = ((BitmapDrawable) drawable).getBitmap();
+                Bitmap bitmap = drawableToBitmap(drawable);
                 ketQua = scanQRImage(bitmap);
-                mediaPlayer.start();
-                if (ketQua.length() >= 4) {
-                    checkLink = ketQua.substring(0, 4);
-                }
-                //Log.d("CHECK",checkLink);
-                txtKetQuaQuetAnh.setText(ketQua);
-                //txtKetQuaQuyetAnh.setMovementMethod(LinkMovementMethod.getInstance());
-                if (checkLink.equals("http")) {
+                if (ketQua != null) {
+                    mediaPlayer.start();
+                    if (ketQua.length() >= 4) {
+                        checkLink = ketQua.substring(0, 4);
+                    }
+                    //Log.d("CHECK",checkLink);
                     txtKetQuaQuetAnh.setText(ketQua);
-                    txtKetQuaQuetAnh.setTextColor(Color.BLUE);
-                    txtKetQuaQuetAnh.setPaintFlags(txtKetQuaQuetAnh.getPaintFlags() | Paint.UNDERLINE_TEXT_FLAG);
-                    txtKetQuaQuetAnh.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View view) {
-                            Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(ketQua));
-                            startActivity(browserIntent);
-                        }
-                    });
+                    //txtKetQuaQuyetAnh.setMovementMethod(LinkMovementMethod.getInstance());
+                    if (checkLink.equals("http")) {
+                        txtKetQuaQuetAnh.setText(ketQua);
+                        txtKetQuaQuetAnh.setTextColor(Color.BLUE);
+                        txtKetQuaQuetAnh.setPaintFlags(txtKetQuaQuetAnh.getPaintFlags() | Paint.UNDERLINE_TEXT_FLAG);
+                        txtKetQuaQuetAnh.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View view) {
+                                Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(ketQua));
+                                startActivity(browserIntent);
+                            }
+                        });
+                    } else {
+                        txtKetQuaQuetAnh.setText(ketQua);
+                        txtKetQuaQuetAnh.setTextColor(Color.BLACK);
+                        txtKetQuaQuetAnh.setPaintFlags(txtKetQuaQuetAnh.getPaintFlags() & ~Paint.UNDERLINE_TEXT_FLAG);
+                        txtKetQuaQuetAnh.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View view) {
+
+                            }
+                        });
+
+                    }
                 } else {
-                    txtKetQuaQuetAnh.setText(ketQua);
-                    txtKetQuaQuetAnh.setTextColor(Color.BLACK);
-                    txtKetQuaQuetAnh.setPaintFlags(txtKetQuaQuetAnh.getPaintFlags() & ~Paint.UNDERLINE_TEXT_FLAG);
-                    txtKetQuaQuetAnh.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View view) {
-
-                        }
-                    });
-
+                    Toast.makeText(requireActivity(), R.string.not_upload_qr_image_to_scan_notifications, Toast.LENGTH_LONG).show();
                 }
             }
         });

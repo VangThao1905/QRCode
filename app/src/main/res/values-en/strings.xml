@@ -13,4 +13,5 @@
     <string name="image_scan">Image scan</string>
     <string name="data_invalid">Data invalid!</string>
     <string name="save_image_success">Save image success!</string>
+    <string name="not_upload_qr_image_to_scan_notifications">Please upload a Qr image to scan</string>
 </resources>
